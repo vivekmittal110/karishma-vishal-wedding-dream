@@ -115,14 +115,16 @@ function Ornament() {
 }
 
 function Index() {
-  const mapsUrl =
-    "https://www.google.com/maps/search/?api=1&query=Majestic+Taj+by+Kawatras+Rajouri+Garden+New+Delhi";
+  const mapsUrl = "https://maps.app.goo.gl/UdqSWV7Yq2gL5PJz7";
+  const [openCeremony, setOpenCeremony] = useState<Ceremony | null>(null);
 
   return (
     <div className="relative min-h-screen overflow-hidden">
       <FloatingPetals />
       <Nav />
       <MusicToggle />
+      <CeremonyModal ceremony={openCeremony} onClose={() => setOpenCeremony(null)} />
+
 
       {/* HERO */}
       <section
