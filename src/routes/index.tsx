@@ -277,31 +277,38 @@ function Index() {
           </div>
           <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3">
             {GALLERY.map((g, i) => (
-              <motion.figure
-                key={g.label}
+              <motion.button
+                type="button"
+                onClick={() => setOpenCeremony(g)}
+                key={g.key}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
                 whileHover={{ y: -8 }}
-                className="group relative overflow-hidden rounded-3xl border border-[var(--gold)]/30 bg-card shadow-soft"
+                className="group relative overflow-hidden rounded-3xl border border-[var(--gold)]/30 bg-card text-left shadow-soft focus:ring-2 focus:ring-[var(--gold)] focus:outline-none"
               >
                 <img
-                  src={g.src}
-                  alt={g.label}
+                  src={g.image}
+                  alt={g.name}
                   loading="lazy"
                   width={1024}
                   height={768}
                   className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <figcaption className="absolute right-0 bottom-0 left-0 bg-gradient-to-t from-black/70 to-transparent p-3 font-display text-lg font-semibold text-white">
-                  {g.label}
+                  <span className="mr-1">{g.emoji}</span>
+                  {g.name}
                 </figcaption>
-              </motion.figure>
+                <span className="absolute top-3 right-3 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold tracking-wider text-[var(--plum)] uppercase opacity-0 transition group-hover:opacity-100">
+                  Tap to open
+                </span>
+              </motion.button>
             ))}
           </div>
         </div>
       </section>
+
 
       {/* VENUE */}
       <section id="venue" className="px-4 py-20">
