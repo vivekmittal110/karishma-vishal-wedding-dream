@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Heart, Calendar, Sparkles } from "lucide-react";
+import { useState } from "react";
 
 import { Nav } from "@/components/wedding/Nav";
 import { FloatingPetals } from "@/components/wedding/FloatingPetals";
@@ -8,6 +9,7 @@ import { Countdown } from "@/components/wedding/Countdown";
 import { MusicToggle } from "@/components/wedding/MusicToggle";
 import { Timeline } from "@/components/wedding/Timeline";
 import { Confetti } from "@/components/wedding/Confetti";
+import { CeremonyModal, type Ceremony } from "@/components/wedding/CeremonyModal";
 
 import coupleHero from "@/assets/couple-hero.png";
 import bride from "@/assets/bride-portrait.png";
@@ -33,13 +35,67 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const GALLERY = [
-  { src: haldi, label: "Haldi" },
-  { src: mehndi, label: "Mehndi" },
-  { src: manda, label: "Manda & Bhat" },
-  { src: sangeet, label: "Sangeet" },
-  { src: baraat, label: "Baraat" },
-  { src: jaimala, label: "Jaimala" },
+const GALLERY: Ceremony[] = [
+  {
+    key: "haldi",
+    emoji: "🌼",
+    name: "Haldi Ceremony",
+    date: "Friday, 10 July 2026",
+    time: "5:00 PM",
+    image: haldi,
+    fx: "haldi",
+    desc: "A sunshine-yellow morning where Karishma's sisters, cousins and aunts lovingly smear haldi on her cheeks — blessing her with glow, joy and good fortune for the days ahead.",
+  },
+  {
+    key: "mehndi",
+    emoji: "🌿",
+    name: "Mehndi Ceremony",
+    date: "Friday, 10 July 2026",
+    time: "7:00 PM",
+    image: mehndi,
+    fx: "mehndi",
+    desc: "Intricate henna swirls bloom across the bride's hands while the ladies of the Jindal family laugh, sing and share stories under twinkling lanterns.",
+  },
+  {
+    key: "manda",
+    emoji: "🎊",
+    name: "Manda & Bhat Ceremony",
+    date: "Saturday, 11 July 2026",
+    time: "10:00 AM",
+    image: manda,
+    fx: "manda",
+    desc: "The sacred Bhat ritual — Karishma's maternal family arrives with gifts, sweets and blessings to begin the most auspicious day.",
+  },
+  {
+    key: "sangeet",
+    emoji: "🎶",
+    name: "Sangeet Ceremony",
+    date: "Saturday, 11 July 2026",
+    time: "7:15 PM",
+    image: sangeet,
+    fx: "sangeet",
+    desc: "Dhol beats, choreographed surprises and the whole family on the dance floor — one big Bollywood night for Karishma & Vishal.",
+  },
+  {
+    key: "baraat",
+    emoji: "🐎",
+    name: "Baraat Ceremony",
+    date: "Sunday, 12 July 2026",
+    time: "7:00 PM",
+    image: baraat,
+    fx: "baraat",
+    desc: "Vishal arrives on a regally decorated white horse, surrounded by his loved ones dancing under sparklers and a sky full of fireworks.",
+  },
+  {
+    key: "jaimala",
+    emoji: "💍",
+    name: "Jaimala Ceremony",
+    date: "Sunday, 12 July 2026",
+    time: "11:00 PM",
+    image: jaimala,
+    fx: "jaimala",
+    desc: "Under a mandap of marigolds and rose petals, Karishma & Vishal exchange garlands — the moment two families become one forever.",
+  },
 ];
 
 const RSVP = [
@@ -59,14 +115,16 @@ function Ornament() {
 }
 
 function Index() {
-  const mapsUrl =
-    "https://www.google.com/maps/search/?api=1&query=Majestic+Taj+by+Kawatras+Rajouri+Garden+New+Delhi";
+  const mapsUrl = "https://maps.app.goo.gl/UdqSWV7Yq2gL5PJz7";
+  const [openCeremony, setOpenCeremony] = useState<Ceremony | null>(null);
 
   return (
     <div className="relative min-h-screen overflow-hidden">
       <FloatingPetals />
       <Nav />
       <MusicToggle />
+      <CeremonyModal ceremony={openCeremony} onClose={() => setOpenCeremony(null)} />
+
 
       {/* HERO */}
       <section
@@ -219,31 +277,38 @@ function Index() {
           </div>
           <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3">
             {GALLERY.map((g, i) => (
-              <motion.figure
-                key={g.label}
+              <motion.button
+                type="button"
+                onClick={() => setOpenCeremony(g)}
+                key={g.key}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
                 whileHover={{ y: -8 }}
-                className="group relative overflow-hidden rounded-3xl border border-[var(--gold)]/30 bg-card shadow-soft"
+                className="group relative overflow-hidden rounded-3xl border border-[var(--gold)]/30 bg-card text-left shadow-soft focus:ring-2 focus:ring-[var(--gold)] focus:outline-none"
               >
                 <img
-                  src={g.src}
-                  alt={g.label}
+                  src={g.image}
+                  alt={g.name}
                   loading="lazy"
                   width={1024}
                   height={768}
                   className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <figcaption className="absolute right-0 bottom-0 left-0 bg-gradient-to-t from-black/70 to-transparent p-3 font-display text-lg font-semibold text-white">
-                  {g.label}
+                  <span className="mr-1">{g.emoji}</span>
+                  {g.name}
                 </figcaption>
-              </motion.figure>
+                <span className="absolute top-3 right-3 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold tracking-wider text-[var(--plum)] uppercase opacity-0 transition group-hover:opacity-100">
+                  Tap to open
+                </span>
+              </motion.button>
             ))}
           </div>
         </div>
       </section>
+
 
       {/* VENUE */}
       <section id="venue" className="px-4 py-20">
