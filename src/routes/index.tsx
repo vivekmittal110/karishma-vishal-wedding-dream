@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Heart, Calendar, Sparkles } from "lucide-react";
+import { useState } from "react";
 
 import { Nav } from "@/components/wedding/Nav";
 import { FloatingPetals } from "@/components/wedding/FloatingPetals";
@@ -8,6 +9,7 @@ import { Countdown } from "@/components/wedding/Countdown";
 import { MusicToggle } from "@/components/wedding/MusicToggle";
 import { Timeline } from "@/components/wedding/Timeline";
 import { Confetti } from "@/components/wedding/Confetti";
+import { CeremonyModal, type Ceremony } from "@/components/wedding/CeremonyModal";
 
 import coupleHero from "@/assets/couple-hero.png";
 import bride from "@/assets/bride-portrait.png";
@@ -33,13 +35,67 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const GALLERY = [
-  { src: haldi, label: "Haldi" },
-  { src: mehndi, label: "Mehndi" },
-  { src: manda, label: "Manda & Bhat" },
-  { src: sangeet, label: "Sangeet" },
-  { src: baraat, label: "Baraat" },
-  { src: jaimala, label: "Jaimala" },
+const GALLERY: Ceremony[] = [
+  {
+    key: "haldi",
+    emoji: "🌼",
+    name: "Haldi Ceremony",
+    date: "Friday, 10 July 2026",
+    time: "5:00 PM",
+    image: haldi,
+    fx: "haldi",
+    desc: "A sunshine-yellow morning where Karishma's sisters, cousins and aunts lovingly smear haldi on her cheeks — blessing her with glow, joy and good fortune for the days ahead.",
+  },
+  {
+    key: "mehndi",
+    emoji: "🌿",
+    name: "Mehndi Ceremony",
+    date: "Friday, 10 July 2026",
+    time: "7:00 PM",
+    image: mehndi,
+    fx: "mehndi",
+    desc: "Intricate henna swirls bloom across the bride's hands while the ladies of the Jindal family laugh, sing and share stories under twinkling lanterns.",
+  },
+  {
+    key: "manda",
+    emoji: "🎊",
+    name: "Manda & Bhat Ceremony",
+    date: "Saturday, 11 July 2026",
+    time: "10:00 AM",
+    image: manda,
+    fx: "manda",
+    desc: "The sacred Bhat ritual — Karishma's maternal family arrives with gifts, sweets and blessings to begin the most auspicious day.",
+  },
+  {
+    key: "sangeet",
+    emoji: "🎶",
+    name: "Sangeet Ceremony",
+    date: "Saturday, 11 July 2026",
+    time: "7:15 PM",
+    image: sangeet,
+    fx: "sangeet",
+    desc: "Dhol beats, choreographed surprises and the whole family on the dance floor — one big Bollywood night for Karishma & Vishal.",
+  },
+  {
+    key: "baraat",
+    emoji: "🐎",
+    name: "Baraat Ceremony",
+    date: "Sunday, 12 July 2026",
+    time: "7:00 PM",
+    image: baraat,
+    fx: "baraat",
+    desc: "Vishal arrives on a regally decorated white horse, surrounded by his loved ones dancing under sparklers and a sky full of fireworks.",
+  },
+  {
+    key: "jaimala",
+    emoji: "💍",
+    name: "Jaimala Ceremony",
+    date: "Sunday, 12 July 2026",
+    time: "11:00 PM",
+    image: jaimala,
+    fx: "jaimala",
+    desc: "Under a mandap of marigolds and rose petals, Karishma & Vishal exchange garlands — the moment two families become one forever.",
+  },
 ];
 
 const RSVP = [
