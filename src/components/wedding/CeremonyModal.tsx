@@ -208,7 +208,7 @@ export function CeremonyModal({
             exit={{ scale: 0.9, y: 20, opacity: 0 }}
             transition={{ type: "spring", damping: 22 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-2xl overflow-hidden rounded-3xl border-2 border-[var(--gold)] bg-card shadow-2xl"
+            className="relative w-full max-w-2xl overflow-y-auto rounded-3xl border-2 border-[var(--gold)] bg-card shadow-2xl max-h-[90vh]"
           >
             <button
               onClick={onClose}

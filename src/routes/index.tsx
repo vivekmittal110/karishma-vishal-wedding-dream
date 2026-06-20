@@ -22,22 +22,23 @@ import { Confetti } from "@/components/wedding/Confetti";
 import { CeremonyModal, type Ceremony } from "@/components/wedding/CeremonyModal";
 
 import coupleHero from "@/assets/couple-hero.png";
-import coupleMainAsset from "@/assets/uploads/couple-main.png.asset.json";
-import coupleHaldiMainAsset from "@/assets/uploads/couple-haldi-main.png.asset.json";
-import mehndiRealAsset from "@/assets/uploads/mehndi-real.png.asset.json";
-import mandaRealAsset from "@/assets/uploads/manda-real.png.asset.json";
-import sangeetRealAsset from "@/assets/uploads/sangeet-real.png.asset.json";
-import baraatRealAsset from "@/assets/uploads/baraat-real.png.asset.json";
-import jaimalaRealAsset from "@/assets/uploads/jaimala-real.png.asset.json";
+import coupleMain from "@/assets/maincouplepic.png";
+import haldi from "@/assets/haldi.png";
+import mehndi from "@/assets/mehndi.png";
+import manda from "@/assets/manda.png";
+import sangeet from "@/assets/sangeet.png";
+import baraat from "@/assets/baraat.png";
+import jaimala from "@/assets/jaimala.png";
+import venue from "@/assets/venue.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Karishma weds Vishal — Save the Date · 12 July 2026" },
+      { title: "Karishma & Vishal are getting married! 💕" },
       {
         name: "description",
         content:
-          "You're invited to the wedding of Karishma & Vishal on Sunday, 12 July 2026 at Majestic Taj by Kawatras, Rajouri Garden, New Delhi.",
+          "Join us to celebrate the love story of Karishma & Vishal on 12 July 2026! ✨",
       },
     ],
   }),
@@ -51,9 +52,9 @@ const GALLERY: Ceremony[] = [
     name: "Haldi Ceremony",
     date: "Friday, 10 July 2026",
     time: "5:00 PM",
-    image: coupleHaldiMainAsset.url,
+    image: haldi,
     fx: "haldi",
-    desc: "A joyful yellow celebration where the couple glows in haldi hues, surrounded by blessings, laughter, and the warmth of family love.",
+    desc: "Getting all glowy and yellow! Surrounded by our favorite people, lots of laughter, and endless blessings! 🌞",
   },
   {
     key: "mehndi",
@@ -61,9 +62,9 @@ const GALLERY: Ceremony[] = [
     name: "Mehndi Ceremony",
     date: "Friday, 10 July 2026",
     time: "7:00 PM",
-    image: mehndiRealAsset.url,
+    image: mehndi,
     fx: "mehndi",
-    desc: "Intricate mehndi, shimmering lights, and a quiet beautiful moment together as the evening fills with music and celebration.",
+    desc: "Pretty henna designs, music, and giggles all night! Can you spot each other's names hidden in the patterns? 💕",
   },
   {
     key: "manda",
@@ -71,9 +72,9 @@ const GALLERY: Ceremony[] = [
     name: "Manda & Bhat Ceremony",
     date: "Saturday, 11 July 2026",
     time: "10:00 AM",
-    image: mandaRealAsset.url,
+    image: manda,
     fx: "manda",
-    desc: "A heartfelt family ritual from the bride's side, filled with blessings, gifts, and loving traditions that make the celebration deeply special.",
+    desc: "Blessings, love, and lots of sweets! A cozy morning with family to kickstart our wedding celebrations! 🎁",
   },
   {
     key: "sangeet",
@@ -81,9 +82,9 @@ const GALLERY: Ceremony[] = [
     name: "Sangeet Ceremony",
     date: "Saturday, 11 July 2026",
     time: "7:15 PM",
-    image: sangeetRealAsset.url,
+    image: sangeet,
     fx: "sangeet",
-    desc: "An evening of sparkle, dance, and full-on celebration, where every beat brings smiles, performances, and unforgettable energy.",
+    desc: "Dance floor, music, and full-on masti! Get ready to show off your best moves! 💃🕺",
   },
   {
     key: "baraat",
@@ -91,9 +92,9 @@ const GALLERY: Ceremony[] = [
     name: "Baraat Ceremony",
     date: "Sunday, 12 July 2026",
     time: "7:00 PM",
-    image: baraatRealAsset.url,
+    image: baraat,
     fx: "baraat",
-    desc: "Vishal's grand royal entry arrives with music, dancing, and festive energy as the groom's side brings the celebration to life.",
+    desc: "The groom is here! Dancing his way to his bride with all the baraat vibes! 🎉",
   },
   {
     key: "jaimala",
@@ -101,9 +102,9 @@ const GALLERY: Ceremony[] = [
     name: "Jaimala Ceremony",
     date: "Sunday, 12 July 2026",
     time: "11:00 PM",
-    image: jaimalaRealAsset.url,
+    image: jaimala,
     fx: "jaimala",
-    desc: "The magical moment of exchanging varmala under glowing lights and petals, where love, joy, and togetherness take center stage.",
+    desc: "The moment we've been waiting for! Exchanging garlands and hearts under the twinkling lights! ✨",
   },
 ];
 
@@ -153,13 +154,13 @@ function Index() {
               transition={{ delay: 0.4 }}
               className="font-script text-3xl text-[var(--rose)] sm:text-4xl"
             >
-              Save The Date
+              We're tying the knot! 💍
             </motion.p>
             <Ornament />
             <h1 className="font-display text-5xl leading-tight font-bold sm:text-7xl">
               <span className="text-gradient-royal">Karishma</span>
               <span className="mx-2 font-script text-4xl text-[var(--gold-deep)] sm:text-5xl">
-                &amp;
+                ❤️
               </span>
               <span className="text-gradient-royal">Vishal</span>
             </h1>
@@ -168,9 +169,8 @@ function Index() {
               Sunday, 12 July 2026
             </p>
             <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted-foreground italic sm:text-base md:mx-0">
-              "Two souls, one heart, one beautiful journey. With great joy, our families
-              request the honour of your presence as we celebrate love, laughter and
-              the beginning of forever."
+              "From the moment we met, we knew it was forever. With all our love, we invite you to
+              celebrate our special day with us! ✨"
             </p>
             <motion.a
               whileHover={{ scale: 1.05 }}
@@ -232,7 +232,7 @@ function Index() {
               className="relative min-h-[420px] overflow-hidden"
             >
               <img
-                src={coupleMainAsset.url}
+                src={coupleMain}
                 alt="Karishma and Vishal together"
                 loading="eager"
                 className="h-full w-full object-cover"
@@ -240,7 +240,7 @@ function Index() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
               <div className="absolute right-4 bottom-4 left-4 flex flex-wrap gap-2">
                 <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-[var(--plum)]">
-                  Real Couple Portrait
+                  Our Favorite Picture! ❤️
                 </span>
                 <span className="rounded-full bg-[var(--gold)]/90 px-3 py-1 text-xs font-semibold text-white">
                   Family Celebration
@@ -253,12 +253,12 @@ function Index() {
               viewport={{ once: true }}
               className="flex flex-col justify-center p-6 sm:p-8 md:p-10"
             >
-              <p className="font-script text-3xl text-[var(--rose)] sm:text-4xl">Together in every moment</p>
+              <p className="font-script text-3xl text-[var(--rose)] sm:text-4xl">Our Little Love Story 💕</p>
               <h2 className="mt-3 font-display text-4xl font-bold text-gradient-royal sm:text-5xl">
                 Karishma &amp; Vishal
               </h2>
               <p className="mt-5 leading-relaxed text-muted-foreground">
-                I merged the bride and groom section into one elegant couple story so the website now feels more personal and connected to their real memories.
+                From shy hellos to forever promises, every moment with you feels like a dream come true! We can't wait to start our happily ever after together! ✨
               </p>
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 <div className="rounded-2xl border border-[var(--gold)]/25 bg-background/60 p-4">
@@ -360,12 +360,15 @@ function Index() {
                 Majestic Taj by Kawatras
               </p>
               <p className="mt-2 text-muted-foreground">Rajouri Garden, New Delhi</p>
+              <p className="mt-5 leading-relaxed text-muted-foreground italic">
+                "Two souls, one heart, one beautiful journey. With great joy, our families request the honour of your presence as we celebrate love, laughter, and the beginning of forever." ✨
+              </p>
 
               <div className="mt-8 grid gap-4 sm:grid-cols-3">
                 <div className="rounded-2xl border border-[var(--gold)]/25 bg-background/70 p-4">
                   <MapPin className="h-5 w-5 text-[var(--primary)]" />
                   <p className="mt-3 font-display text-lg text-[var(--plum)]">Grand Arrival</p>
-                  <p className="mt-1 text-sm text-muted-foreground">A premium wedding setting for every ceremony and family gathering.</p>
+                  <p className="mt-1 text-sm text-muted-foreground">A premium wedding setting for ceremony and family gathering.</p>
                 </div>
                 <div className="rounded-2xl border border-[var(--gold)]/25 bg-background/70 p-4">
                   <Clock3 className="h-5 w-5 text-[var(--primary)]" />
@@ -412,7 +415,7 @@ function Index() {
           >
             <div className="relative h-full min-h-[360px]">
               <img
-                src={jaimalaRealAsset.url}
+                src={venue}
                 alt="Wedding celebration ambiance"
                 loading="lazy"
                 className="h-full w-full object-cover"
@@ -489,9 +492,9 @@ function Index() {
         >
           <Heart className="mx-auto h-8 w-8 text-[var(--gold)]" />
           <p className="mt-4 font-script text-4xl text-[var(--cream)] sm:text-5xl">
-            We look forward to celebrating with you
+            Can't wait to celebrate with our favorite people! 🥳
           </p>
-          <p className="mt-4 font-display text-2xl">Karishma &amp; Vishal</p>
+          <p className="mt-4 font-display text-2xl">Karishma ❤️ Vishal</p>
           <p className="mt-1 text-sm tracking-widest text-white/80 uppercase">12 · 07 · 2026</p>
         </motion.div>
       </footer>
