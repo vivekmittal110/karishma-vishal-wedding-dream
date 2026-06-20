@@ -127,6 +127,7 @@ function Ornament() {
 function Index() {
   const mapsUrl = "https://maps.app.goo.gl/UdqSWV7Yq2gL5PJz7";
   const [openCeremony, setOpenCeremony] = useState<Ceremony | null>(null);
+  const [songStarted, setSongStarted] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -136,37 +137,43 @@ function Index() {
     a.preload = "auto"; // Preload the entire audio file
     audioRef.current = a;
 
-    const tryStart = async () => {
-      try {
-        await a.play();
-      } catch {
-        // wait for user gesture
-      }
-    };
-    const onGesture = () => {
-      tryStart();
-    };
-    
-    // Add listeners to multiple user gestures to start playing as soon as possible
-    window.addEventListener("pointerdown", onGesture);
-    window.addEventListener("keydown", onGesture);
-    window.addEventListener("touchstart", onGesture);
-    window.addEventListener("mousemove", onGesture);
-
-    // Try to play immediately (most browsers will block, but some allow if user visited before)
-    tryStart();
-
     return () => {
-      window.removeEventListener("pointerdown", onGesture);
-      window.removeEventListener("keydown", onGesture);
-      window.removeEventListener("touchstart", onGesture);
-      window.removeEventListener("mousemove", onGesture);
       a.pause();
     };
   }, []);
 
+  const startSong = async () => {
+    if (songStarted || !audioRef.current) return;
+    try {
+      await audioRef.current.play();
+      setSongStarted(true);
+    } catch (e) {
+      console.error("Error playing song:", e);
+    }
+  };
+
   return (
     <div className="relative min-h-screen overflow-hidden">
+      {/* Overlay to start song */}
+      {!songStarted && (
+        <div
+          onClick={startSong}
+          onTouchStart={startSong}
+          className="fixed inset-0 z-50 flex cursor-pointer items-center justify-center bg-black/80 backdrop-blur-sm"
+        >
+          <div className="text-center text-white">
+            <motion.div
+              animate={{ scale: [1, 1.05, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <Heart className="mx-auto h-12 w-12 text-[var(--rose)]" />
+            </motion.div>
+            <h2 className="mt-4 font-script text-4xl">Tap Anywhere to Start the Music 🎵</h2>
+            <p className="mt-2 text-white/80">Welcome to our wedding celebration!</p>
+          </div>
+        </div>
+      )}
+
       <FloatingPetals />
       <Nav />
       <CeremonyModal ceremony={openCeremony} onClose={() => setOpenCeremony(null)} />
