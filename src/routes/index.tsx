@@ -11,12 +11,12 @@ import {
   BadgeCheck,
   MessageCircle,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { Nav } from "@/components/wedding/Nav";
 import { FloatingPetals } from "@/components/wedding/FloatingPetals";
 import { Countdown } from "@/components/wedding/Countdown";
-import { MusicToggle } from "@/components/wedding/MusicToggle";
+import weddingSong from "@/assets/YTDown_Shorts_Top-Songs-for-Wedding-Invitation-Videos_Media_GypRAEBgNzY_008_128k.mp3";
 import { Timeline } from "@/components/wedding/Timeline";
 import { Confetti } from "@/components/wedding/Confetti";
 import { CeremonyModal, type Ceremony } from "@/components/wedding/CeremonyModal";
@@ -127,12 +127,49 @@ function Ornament() {
 function Index() {
   const mapsUrl = "https://maps.app.goo.gl/UdqSWV7Yq2gL5PJz7";
   const [openCeremony, setOpenCeremony] = useState<Ceremony | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const a = new Audio(weddingSong);
+    a.loop = true;
+    a.volume = 0.55;
+    a.preload = "auto";
+    audioRef.current = a;
+
+    const tryStart = async () => {
+      try {
+        await a.play();
+        cleanup();
+      } catch {
+        // wait for user gesture
+      }
+    };
+    const onGesture = () => {
+      tryStart();
+    };
+    const cleanup = () => {
+      window.removeEventListener("pointerdown", onGesture);
+      window.removeEventListener("keydown", onGesture);
+      window.removeEventListener("scroll", onGesture);
+      window.removeEventListener("touchstart", onGesture);
+    };
+    
+    tryStart();
+    window.addEventListener("pointerdown", onGesture, { once: true });
+    window.addEventListener("keydown", onGesture, { once: true });
+    window.addEventListener("scroll", onGesture, { once: true });
+    window.addEventListener("touchstart", onGesture, { once: true });
+
+    return () => {
+      cleanup();
+      a.pause();
+    };
+  }, []);
 
   return (
     <div className="relative min-h-screen overflow-hidden">
       <FloatingPetals />
       <Nav />
-      <MusicToggle />
       <CeremonyModal ceremony={openCeremony} onClose={() => setOpenCeremony(null)} />
 
       <section
@@ -498,7 +535,6 @@ function Index() {
           <p className="mt-1 text-sm tracking-widest text-white/80 uppercase">12 · 07 · 2026</p>
         </motion.div>
       </footer>
-      <MusicToggle />
     </div>
   );
 }
