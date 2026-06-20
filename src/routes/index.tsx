@@ -16,7 +16,7 @@ import { useState } from "react";
 import { Nav } from "@/components/wedding/Nav";
 import { FloatingPetals } from "@/components/wedding/FloatingPetals";
 import { Countdown } from "@/components/wedding/Countdown";
-import { MusicToggle } from "@/components/wedding/MusicToggle";
+
 import { Timeline } from "@/components/wedding/Timeline";
 import { Confetti } from "@/components/wedding/Confetti";
 import { CeremonyModal, type Ceremony } from "@/components/wedding/CeremonyModal";
@@ -498,7 +498,6 @@ function Index() {
           <p className="mt-1 text-sm tracking-widest text-white/80 uppercase">12 · 07 · 2026</p>
         </motion.div>
       </footer>
-      <MusicToggle />
     </div>
   );
 }
