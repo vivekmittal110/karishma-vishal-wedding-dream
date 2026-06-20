@@ -18,10 +18,15 @@ export function MusicToggle() {
     a.preload = "auto";
     audioRef.current = a;
 
+    // Event listeners to sync state with actual audio playback
+    const onPlay = () => setPlaying(true);
+    const onPause = () => setPlaying(false);
+    a.addEventListener("play", onPlay);
+    a.addEventListener("pause", onPause);
+
     const tryStart = async () => {
       try {
         await a.play();
-        setPlaying(true);
         cleanup();
       } catch {
         // wait for user gesture
@@ -35,6 +40,8 @@ export function MusicToggle() {
       window.removeEventListener("keydown", onGesture);
       window.removeEventListener("scroll", onGesture);
       window.removeEventListener("touchstart", onGesture);
+      a.removeEventListener("play", onPlay);
+      a.removeEventListener("pause", onPause);
     };
     // Attempt right away; most browsers will block until a gesture
     tryStart();
@@ -49,19 +56,13 @@ export function MusicToggle() {
     };
   }, []);
 
-  const toggle = async () => {
+  const toggle = () => {
     const a = audioRef.current;
     if (!a) return;
     if (playing) {
       a.pause();
-      setPlaying(false);
     } else {
-      try {
-        await a.play();
-        setPlaying(true);
-      } catch (e) {
-        console.warn("audio play blocked", e);
-      }
+      a.play().catch(e => console.warn("audio play blocked", e));
     }
   };
 
