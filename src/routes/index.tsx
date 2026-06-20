@@ -498,6 +498,7 @@ function Index() {
           <p className="mt-1 text-sm tracking-widest text-white/80 uppercase">12 · 07 · 2026</p>
         </motion.div>
       </footer>
+      <MusicToggle />
     </div>
   );
 }
