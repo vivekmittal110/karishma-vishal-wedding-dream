@@ -333,7 +333,7 @@ function Index() {
             Wedding Festivities
           </motion.h2>
           <Ornament />
-          <p className="text-muted-foreground">Six days of love, music, colour & tradition</p>
+          <p className="text-muted-foreground">Six events of love, music, colour &amp; tradition</p>
         </div>
         <Timeline />
       </section>
