@@ -133,13 +133,12 @@ function Index() {
     const a = new Audio(weddingSong);
     a.loop = true;
     a.volume = 0.55;
-    a.preload = "auto";
+    a.preload = "auto"; // Preload the entire audio file
     audioRef.current = a;
 
     const tryStart = async () => {
       try {
         await a.play();
-        cleanup();
       } catch {
         // wait for user gesture
       }
@@ -147,21 +146,21 @@ function Index() {
     const onGesture = () => {
       tryStart();
     };
-    const cleanup = () => {
-      window.removeEventListener("pointerdown", onGesture);
-      window.removeEventListener("keydown", onGesture);
-      window.removeEventListener("scroll", onGesture);
-      window.removeEventListener("touchstart", onGesture);
-    };
     
+    // Add listeners to multiple user gestures to start playing as soon as possible
+    window.addEventListener("pointerdown", onGesture);
+    window.addEventListener("keydown", onGesture);
+    window.addEventListener("touchstart", onGesture);
+    window.addEventListener("mousemove", onGesture);
+
+    // Try to play immediately (most browsers will block, but some allow if user visited before)
     tryStart();
-    window.addEventListener("pointerdown", onGesture, { once: true });
-    window.addEventListener("keydown", onGesture, { once: true });
-    window.addEventListener("scroll", onGesture, { once: true });
-    window.addEventListener("touchstart", onGesture, { once: true });
 
     return () => {
-      cleanup();
+      window.removeEventListener("pointerdown", onGesture);
+      window.removeEventListener("keydown", onGesture);
+      window.removeEventListener("touchstart", onGesture);
+      window.removeEventListener("mousemove", onGesture);
       a.pause();
     };
   }, []);
