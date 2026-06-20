@@ -1,13 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 import { motion } from "framer-motion";
+import weddingSong from "@/assets/YTDown_Shorts_Top-Songs-for-Wedding-Invitation-Videos_Media_GypRAEBgNzY_008_128k.mp3";
 
-// Romantic instrumental — browsers do not allow copyrighted Bollywood tracks
-// like "Aaj Se Teri" to be hosted freely, so we use a soft Indian-style
-// instrumental that loops at medium volume. It begins on the first user
-// interaction (browser autoplay policies block audio before any gesture).
-const MUSIC_SRC =
-  "https://cdn.pixabay.com/audio/2024/02/04/audio_94c3a4dcf3.mp3";
+// Wedding song from local assets that loops at medium volume.
+// It begins on the first user interaction (browser autoplay policies block audio before any gesture).
+const MUSIC_SRC = weddingSong;
 
 export function MusicToggle() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
