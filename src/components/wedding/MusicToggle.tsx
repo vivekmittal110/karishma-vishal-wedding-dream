@@ -59,10 +59,10 @@ export function MusicToggle() {
   const toggle = () => {
     const a = audioRef.current;
     if (!a) return;
-    if (playing) {
-      a.pause();
-    } else {
+    if (a.paused) {
       a.play().catch(e => console.warn("audio play blocked", e));
+    } else {
+      a.pause();
     }
   };
 
