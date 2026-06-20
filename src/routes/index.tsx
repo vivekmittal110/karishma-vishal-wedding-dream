@@ -1,6 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Heart, Calendar, Sparkles } from "lucide-react";
+import {
+  MapPin,
+  Phone,
+  Heart,
+  Calendar,
+  Sparkles,
+  Navigation,
+  Clock3,
+  BadgeCheck,
+  MessageCircle,
+} from "lucide-react";
 import { useState } from "react";
 
 import { Nav } from "@/components/wedding/Nav";
@@ -12,14 +22,13 @@ import { Confetti } from "@/components/wedding/Confetti";
 import { CeremonyModal, type Ceremony } from "@/components/wedding/CeremonyModal";
 
 import coupleHero from "@/assets/couple-hero.png";
-import bride from "@/assets/bride-portrait.png";
-import groom from "@/assets/groom-portrait.png";
-import haldi from "@/assets/haldi.jpg";
-import mehndi from "@/assets/mehndi.jpg";
-import manda from "@/assets/manda.jpg";
-import sangeet from "@/assets/sangeet.jpg";
-import baraat from "@/assets/baraat.jpg";
-import jaimala from "@/assets/jaimala.jpg";
+import coupleMainAsset from "@/assets/uploads/couple-main.png.asset.json";
+import coupleHaldiMainAsset from "@/assets/uploads/couple-haldi-main.png.asset.json";
+import mehndiRealAsset from "@/assets/uploads/mehndi-real.png.asset.json";
+import mandaRealAsset from "@/assets/uploads/manda-real.png.asset.json";
+import sangeetRealAsset from "@/assets/uploads/sangeet-real.png.asset.json";
+import baraatRealAsset from "@/assets/uploads/baraat-real.png.asset.json";
+import jaimalaRealAsset from "@/assets/uploads/jaimala-real.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -42,9 +51,9 @@ const GALLERY: Ceremony[] = [
     name: "Haldi Ceremony",
     date: "Friday, 10 July 2026",
     time: "5:00 PM",
-    image: haldi,
+    image: coupleHaldiMainAsset.url,
     fx: "haldi",
-    desc: "A sunshine-yellow morning where Karishma's sisters, cousins and aunts lovingly smear haldi on her cheeks — blessing her with glow, joy and good fortune for the days ahead.",
+    desc: "A joyful yellow celebration where the couple glows in haldi hues, surrounded by blessings, laughter, and the warmth of family love.",
   },
   {
     key: "mehndi",
@@ -52,9 +61,9 @@ const GALLERY: Ceremony[] = [
     name: "Mehndi Ceremony",
     date: "Friday, 10 July 2026",
     time: "7:00 PM",
-    image: mehndi,
+    image: mehndiRealAsset.url,
     fx: "mehndi",
-    desc: "Intricate henna swirls bloom across the bride's hands while the ladies of the Jindal family laugh, sing and share stories under twinkling lanterns.",
+    desc: "Intricate mehndi, shimmering lights, and a quiet beautiful moment together as the evening fills with music and celebration.",
   },
   {
     key: "manda",
@@ -62,9 +71,9 @@ const GALLERY: Ceremony[] = [
     name: "Manda & Bhat Ceremony",
     date: "Saturday, 11 July 2026",
     time: "10:00 AM",
-    image: manda,
+    image: mandaRealAsset.url,
     fx: "manda",
-    desc: "The sacred Bhat ritual — Karishma's maternal family arrives with gifts, sweets and blessings to begin the most auspicious day.",
+    desc: "A heartfelt family ritual from the bride's side, filled with blessings, gifts, and loving traditions that make the celebration deeply special.",
   },
   {
     key: "sangeet",
@@ -72,9 +81,9 @@ const GALLERY: Ceremony[] = [
     name: "Sangeet Ceremony",
     date: "Saturday, 11 July 2026",
     time: "7:15 PM",
-    image: sangeet,
+    image: sangeetRealAsset.url,
     fx: "sangeet",
-    desc: "Dhol beats, choreographed surprises and the whole family on the dance floor — one big Bollywood night for Karishma & Vishal.",
+    desc: "An evening of sparkle, dance, and full-on celebration, where every beat brings smiles, performances, and unforgettable energy.",
   },
   {
     key: "baraat",
@@ -82,9 +91,9 @@ const GALLERY: Ceremony[] = [
     name: "Baraat Ceremony",
     date: "Sunday, 12 July 2026",
     time: "7:00 PM",
-    image: baraat,
+    image: baraatRealAsset.url,
     fx: "baraat",
-    desc: "Vishal arrives on a regally decorated white horse, surrounded by his loved ones dancing under sparklers and a sky full of fireworks.",
+    desc: "Vishal's grand royal entry arrives with music, dancing, and festive energy as the groom's side brings the celebration to life.",
   },
   {
     key: "jaimala",
@@ -92,9 +101,9 @@ const GALLERY: Ceremony[] = [
     name: "Jaimala Ceremony",
     date: "Sunday, 12 July 2026",
     time: "11:00 PM",
-    image: jaimala,
+    image: jaimalaRealAsset.url,
     fx: "jaimala",
-    desc: "Under a mandap of marigolds and rose petals, Karishma & Vishal exchange garlands — the moment two families become one forever.",
+    desc: "The magical moment of exchanging varmala under glowing lights and petals, where love, joy, and togetherness take center stage.",
   },
 ];
 
@@ -125,8 +134,6 @@ function Index() {
       <MusicToggle />
       <CeremonyModal ceremony={openCeremony} onClose={() => setOpenCeremony(null)} />
 
-
-      {/* HERO */}
       <section
         id="home"
         className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 pt-24 pb-16"
@@ -199,7 +206,6 @@ function Index() {
         </div>
       </section>
 
-      {/* COUNTDOWN */}
       <section id="countdown" className="px-4 py-20">
         <div className="mx-auto max-w-4xl text-center">
           <motion.h2
@@ -216,39 +222,63 @@ function Index() {
         </div>
       </section>
 
-      {/* BRIDE & GROOM */}
       <section className="px-4 py-20">
-        <div className="mx-auto grid max-w-5xl gap-10 sm:grid-cols-2">
-          {[
-            { img: bride, name: "Karishma", role: "The Bride", color: "from-pink-200 to-rose-100" },
-            { img: groom, name: "Vishal", role: "The Groom", color: "from-amber-100 to-yellow-50" },
-          ].map((p, i) => (
+        <div className="mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-[var(--gold)]/35 bg-card shadow-soft">
+          <div className="grid items-stretch md:grid-cols-[1.1fr_0.9fr]">
             <motion.div
-              key={p.name}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
-              className={`group relative overflow-hidden rounded-[2rem] border border-[var(--gold)]/40 bg-gradient-to-b ${p.color} p-6 shadow-soft`}
+              className="relative min-h-[420px] overflow-hidden"
             >
-              <motion.img
-                src={p.img}
-                alt={p.name}
-                loading="lazy"
-                width={768}
-                height={1024}
-                className="mx-auto h-80 w-auto object-contain drop-shadow-xl transition-transform duration-700 group-hover:scale-105"
+              <img
+                src={coupleMainAsset.url}
+                alt="Karishma and Vishal together"
+                loading="eager"
+                className="h-full w-full object-cover"
               />
-              <div className="mt-4 text-center">
-                <p className="font-script text-2xl text-[var(--rose)]">{p.role}</p>
-                <h3 className="font-display text-3xl font-bold text-[var(--plum)]">{p.name}</h3>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+              <div className="absolute right-4 bottom-4 left-4 flex flex-wrap gap-2">
+                <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-[var(--plum)]">
+                  Real Couple Portrait
+                </span>
+                <span className="rounded-full bg-[var(--gold)]/90 px-3 py-1 text-xs font-semibold text-white">
+                  Family Celebration
+                </span>
               </div>
             </motion.div>
-          ))}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex flex-col justify-center p-6 sm:p-8 md:p-10"
+            >
+              <p className="font-script text-3xl text-[var(--rose)] sm:text-4xl">Together in every moment</p>
+              <h2 className="mt-3 font-display text-4xl font-bold text-gradient-royal sm:text-5xl">
+                Karishma &amp; Vishal
+              </h2>
+              <p className="mt-5 leading-relaxed text-muted-foreground">
+                I merged the bride and groom section into one elegant couple story so the website now feels more personal and connected to their real memories.
+              </p>
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                <div className="rounded-2xl border border-[var(--gold)]/25 bg-background/60 p-4">
+                  <p className="text-xs font-semibold tracking-[0.24em] text-[var(--rose)] uppercase">
+                    Main Celebration
+                  </p>
+                  <p className="mt-2 font-display text-xl text-[var(--plum)]">A real-love first impression</p>
+                </div>
+                <div className="rounded-2xl border border-[var(--gold)]/25 bg-background/60 p-4">
+                  <p className="text-xs font-semibold tracking-[0.24em] text-[var(--rose)] uppercase">
+                    Warm & Premium
+                  </p>
+                  <p className="mt-2 font-display text-xl text-[var(--plum)]">Luxury Indian wedding mood</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* EVENTS / TIMELINE */}
       <section id="events" className="px-4 py-20">
         <div className="mb-12 text-center">
           <motion.h2
@@ -265,7 +295,6 @@ function Index() {
         <Timeline />
       </section>
 
-      {/* GALLERY */}
       <section id="gallery" className="px-4 py-20">
         <div className="mx-auto max-w-6xl">
           <div className="mb-10 text-center">
@@ -273,7 +302,7 @@ function Index() {
               Moments of Magic
             </h2>
             <Ornament />
-            <p className="text-muted-foreground">A glimpse into each celebration</p>
+            <p className="text-muted-foreground">Tap any celebration to open the real memory</p>
           </div>
           <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3">
             {GALLERY.map((g, i) => (
@@ -301,7 +330,7 @@ function Index() {
                   {g.name}
                 </figcaption>
                 <span className="absolute top-3 right-3 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold tracking-wider text-[var(--plum)] uppercase opacity-0 transition group-hover:opacity-100">
-                  Tap to open
+                  Open Memory
                 </span>
               </motion.button>
             ))}
@@ -309,54 +338,111 @@ function Index() {
         </div>
       </section>
 
-
-      {/* VENUE */}
       <section id="venue" className="px-4 py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mx-auto max-w-3xl rounded-[2rem] border border-[var(--gold)]/40 bg-card p-8 text-center shadow-soft sm:p-12"
-        >
-          <MapPin className="mx-auto h-10 w-10 text-[var(--primary)]" />
-          <h2 className="mt-4 font-display text-4xl font-bold text-gradient-royal sm:text-5xl">
-            The Venue
-          </h2>
-          <Ornament />
-          <p className="font-display text-2xl font-semibold text-[var(--plum)] sm:text-3xl">
-            Majestic Taj by Kawatras
-          </p>
-          <p className="mt-2 text-muted-foreground">Rajouri Garden, New Delhi</p>
-          <motion.a
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.97 }}
-            href={mapsUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-gold px-8 py-3 text-sm font-semibold tracking-wider text-white uppercase shadow-gold"
+        <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative overflow-hidden rounded-[2rem] border border-[var(--gold)]/40 bg-card p-8 shadow-soft sm:p-10"
           >
-            <MapPin className="h-4 w-4" />
-            Open in Google Maps
-          </motion.a>
-        </motion.div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,215,140,0.28),transparent_35%),radial-gradient(circle_at_bottom_left,rgba(225,89,134,0.12),transparent_38%)]" />
+            <div className="relative">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--gold)]/30 bg-background/70 px-4 py-2 text-xs font-semibold tracking-[0.24em] text-[var(--rose)] uppercase">
+                <BadgeCheck className="h-4 w-4" />
+                Wedding Destination
+              </div>
+              <h2 className="mt-5 font-display text-4xl font-bold text-gradient-royal sm:text-5xl">
+                The Venue
+              </h2>
+              <Ornament />
+              <p className="font-display text-2xl font-semibold text-[var(--plum)] sm:text-3xl">
+                Majestic Taj by Kawatras
+              </p>
+              <p className="mt-2 text-muted-foreground">Rajouri Garden, New Delhi</p>
+
+              <div className="mt-8 grid gap-4 sm:grid-cols-3">
+                <div className="rounded-2xl border border-[var(--gold)]/25 bg-background/70 p-4">
+                  <MapPin className="h-5 w-5 text-[var(--primary)]" />
+                  <p className="mt-3 font-display text-lg text-[var(--plum)]">Grand Arrival</p>
+                  <p className="mt-1 text-sm text-muted-foreground">A premium wedding setting for every ceremony and family gathering.</p>
+                </div>
+                <div className="rounded-2xl border border-[var(--gold)]/25 bg-background/70 p-4">
+                  <Clock3 className="h-5 w-5 text-[var(--primary)]" />
+                  <p className="mt-3 font-display text-lg text-[var(--plum)]">Wedding Day</p>
+                  <p className="mt-1 text-sm text-muted-foreground">Sunday, 12 July 2026 · Celebration begins from the evening onward.</p>
+                </div>
+                <div className="rounded-2xl border border-[var(--gold)]/25 bg-background/70 p-4">
+                  <Navigation className="h-5 w-5 text-[var(--primary)]" />
+                  <p className="mt-3 font-display text-lg text-[var(--plum)]">Easy Directions</p>
+                  <p className="mt-1 text-sm text-muted-foreground">Open the live map instantly and navigate straight to the venue.</p>
+                </div>
+              </div>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <motion.a
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.97 }}
+                  href={mapsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-gradient-gold px-8 py-3 text-sm font-semibold tracking-wider text-white uppercase shadow-gold"
+                >
+                  <MapPin className="h-4 w-4" />
+                  Open in Maps
+                </motion.a>
+                <motion.a
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.97 }}
+                  href="#rsvp"
+                  className="inline-flex items-center gap-2 rounded-full border border-[var(--gold)]/35 bg-background/75 px-6 py-3 text-sm font-semibold tracking-wider text-[var(--plum)] uppercase"
+                >
+                  <Phone className="h-4 w-4" />
+                  Contact Family
+                </motion.a>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="overflow-hidden rounded-[2rem] border border-[var(--gold)]/35 bg-card shadow-soft"
+          >
+            <div className="relative h-full min-h-[360px]">
+              <img
+                src={jaimalaRealAsset.url}
+                alt="Wedding celebration ambiance"
+                loading="lazy"
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
+              <div className="absolute right-0 bottom-0 left-0 p-6 sm:p-8">
+                <p className="font-script text-3xl text-[var(--cream)]">A royal evening awaits</p>
+                <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/90">
+                  From the baraat welcome to the varmala moment, the venue is set to feel warm, festive, and unforgettable.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
-      {/* RSVP */}
       <section id="rsvp" className="px-4 py-20">
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="mx-auto max-w-5xl text-center">
           <h2 className="font-display text-4xl font-bold text-gradient-royal sm:text-5xl">
             RSVP
           </h2>
           <Ornament />
           <p className="mb-2 font-script text-3xl text-[var(--rose)]">With love, the Jindal Family</p>
           <p className="mb-10 text-muted-foreground">
-            We'd be honoured by your presence — please reach out to confirm.
+            We'd be honoured by your presence — call directly or send a quick WhatsApp message.
           </p>
           <div className="grid gap-5 sm:grid-cols-3">
             {RSVP.map((r, i) => (
-              <motion.a
+              <motion.div
                 key={r.phone}
-                href={`tel:${r.phone}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -369,13 +455,30 @@ function Index() {
                 </div>
                 <h3 className="mt-4 font-display text-xl font-bold text-[var(--plum)]">{r.name}</h3>
                 <p className="mt-1 text-[var(--primary)]">+91 {r.phone}</p>
-              </motion.a>
+                <div className="mt-5 grid gap-3">
+                  <a
+                    href={`tel:${r.phone}`}
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-royal px-4 py-3 text-sm font-semibold tracking-wider text-white uppercase"
+                  >
+                    <Phone className="h-4 w-4" />
+                    Call Now
+                  </a>
+                  <a
+                    href={`https://wa.me/91${r.phone}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--gold)]/35 bg-background/75 px-4 py-3 text-sm font-semibold tracking-wider text-[var(--plum)] uppercase"
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    WhatsApp
+                  </a>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer className="relative overflow-hidden bg-gradient-royal px-4 py-16 text-center text-white">
         <Confetti count={20} />
         <motion.div
